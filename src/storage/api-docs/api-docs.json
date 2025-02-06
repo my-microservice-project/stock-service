@@ -1,0 +1,217 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Stock Service",
+        "description": "Stock API Documentation",
+        "contact": {
+            "email": "bugrabozkurtt@gmail.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/stocks/sync": {
+            "post": {
+                "tags": [
+                    "Stock"
+                ],
+                "summary": "Synchronize stock levels",
+                "operationId": "7b3f583f34f071fcd7ad8a86e1daf96f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "product_id",
+                                    "quantity"
+                                ],
+                                "properties": {
+                                    "product_id": {
+                                        "description": "Product ID",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "quantity": {
+                                        "description": "Product stock quantity",
+                                        "type": "integer",
+                                        "example": 101
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Stock successfully synchronized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StockResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    },
+                    "500": {
+                        "description": "Stock could not be created"
+                    }
+                }
+            }
+        },
+        "/api/v1/stocks/{productId}": {
+            "get": {
+                "tags": [
+                    "Stock"
+                ],
+                "summary": "Retrieve stock quantity for a specific product",
+                "operationId": "739f516d22910f703c10e5baff28fa5b",
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "Product ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StockResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/stocks/check-availability": {
+            "post": {
+                "tags": [
+                    "Stock"
+                ],
+                "summary": "Check stock availability for products",
+                "operationId": "a029b2c393ec72a979a6208c11836e69",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "products"
+                                ],
+                                "properties": {
+                                    "products": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "product_id": {
+                                                    "description": "Product ID",
+                                                    "type": "integer",
+                                                    "example": 101
+                                                },
+                                                "quantity": {
+                                                    "description": "Requested quantity",
+                                                    "type": "integer",
+                                                    "example": 3
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Stock availability retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/StockResource"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data"
+                    },
+                    "404": {
+                        "description": "Product not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ProductStockDTO": {
+                "title": "Product Stock Data Transfer Object",
+                "description": "Product Stock information",
+                "properties": {
+                    "product_id": {
+                        "description": "Ürünün benzersiz kimliği",
+                        "type": "integer",
+                        "example": 28
+                    },
+                    "quantity": {
+                        "description": "Ürünün stok adedi",
+                        "type": "integer",
+                        "example": 50
+                    }
+                },
+                "type": "object"
+            },
+            "StockResource": {
+                "title": "Stock Resource",
+                "description": "Product stock information",
+                "properties": {
+                    "product_id": {
+                        "description": "Product ID",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "quantity": {
+                        "description": "Stock piece",
+                        "type": "integer",
+                        "example": 50
+                    },
+                    "available": {
+                        "description": "The product's stock is available",
+                        "type": "boolean",
+                        "example": true
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Stock",
+            "description": "API endpoints related to stock operations"
+        }
+    ]
+}
