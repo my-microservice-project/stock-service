@@ -4,8 +4,7 @@ Bu proje, stok yönetimi için geliştirilmiş bir mikroservis uygulamasıdır.
 
 ## 🚀 Teknolojiler
 
-- Java 17
-- Spring Boot
+- Laravel 11
 - PostgreSQL
 - Redis
 - RabbitMQ
