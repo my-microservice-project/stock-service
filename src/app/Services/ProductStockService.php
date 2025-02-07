@@ -17,7 +17,6 @@ class ProductStockService
     {}
 
     /**
-     * Stok senkronizasyonunu gerçekleştirir.
      * @throws StockNotCreatedException
      * @param ProductStockDTO $dto
      * @return ProductStockDTO
@@ -33,7 +32,6 @@ class ProductStockService
     }
 
     /**
-     * Veritabanında stok senkronizasyonunu gerçekleştirir.
      * @throws StockNotCreatedException
      * @param ProductStockDTO $dto
      * @return ProductStockDTO
@@ -48,7 +46,6 @@ class ProductStockService
     }
 
     /**
-     * Cache güncellemelerini gerçekleştirir.
      * @param int $productId
      * @param int $quantity
      */
@@ -61,7 +58,6 @@ class ProductStockService
     }
 
     /**
-     * Stok güncelleme olayını yayınlar.
      * @param int $productId
      * @return void
      */
@@ -71,7 +67,6 @@ class ProductStockService
     }
 
     /**
-     * Stok miktarını getirir.
      * @param int $productId
      * @return int
      */
@@ -85,7 +80,6 @@ class ProductStockService
     }
 
     /**
-     * Stok güncellemesi yapar.
      * @param ProductStockDTO $dto
      * @return ProductStockDTO
      */
@@ -95,7 +89,6 @@ class ProductStockService
     }
 
     /**
-     * Stok kontrolü yapar.
      * @param CheckAvailabilityDTO $dto
      * @return Collection
      * @throws Exception
@@ -106,7 +99,6 @@ class ProductStockService
     }
 
     /**
-     * Stok bilgisini getirir ve uygunluk kontrolü yaparak ProductStockDTO döndürür.
      * @param ProductStockDTO $product
      * @return CheckAvailabilityResultDTO
      */
@@ -122,7 +114,6 @@ class ProductStockService
     }
 
     /**
-     * Stok uygunluğunu kontrol eder.
      * @param int $stock
      * @param int $requestedQuantity
      * @return bool
