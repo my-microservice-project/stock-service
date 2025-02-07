@@ -10,7 +10,7 @@ use App\Http\Requests\CheckAvailabilityRequest;
 use App\Http\Requests\SyncStockRequest;
 use App\Http\Resources\StockResource;
 use App\Services\ProductStockService;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use OpenApi\Attributes as OA;
 
 #[OA\Tag(name: "Stock", description: "API endpoints related to stock operations")]
@@ -47,9 +47,10 @@ class StockController extends Controller
             new OA\Response(response: 500, description: "Stock could not be created"),
         ]
     )]
-    public function sync(SyncStockRequest $request, SyncStockAction $action): JsonResponse
+    public function sync(SyncStockRequest $request, SyncStockAction $action): StockResource
     {
-        return $this->successResponse('Success', StockResource::make($action->execute($request->payload())));
+        $syncedProductStock = $action->execute($request->payload());
+        return StockResource::make($syncedProductStock)->additional(['success'=>true]);
     }
 
     #[OA\Get(
@@ -74,9 +75,9 @@ class StockController extends Controller
             new OA\Response(response: 404, description: "Product not found"),
         ]
     )]
-    public function getStock(int $productId, GetStockAction $action): JsonResponse
+    public function getStock(int $productId, GetStockAction $action): StockResource
     {
-        return $this->successResponse('Success', StockResource::make($action->execute($productId)));
+        return StockResource::make($action->execute($productId))->additional(['success'=>true]);
     }
 
     /**
@@ -114,8 +115,9 @@ class StockController extends Controller
             new OA\Response(response: 404, description: "Product not found"),
         ]
     )]
-    public function checkAvailability(CheckAvailabilityRequest $request): JsonResponse
+    public function checkAvailability(CheckAvailabilityRequest $request): AnonymousResourceCollection
     {
-        return $this->successResponse('Success', StockResource::collection($this->productStockService->checkAvailability($request->payload())));
+        $availability = $this->productStockService->checkAvailability($request->payload());
+        return StockResource::collection($availability);
     }
 }
