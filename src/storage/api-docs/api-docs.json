@@ -167,17 +167,61 @@
     },
     "components": {
         "schemas": {
-            "ProductStockDTO": {
-                "title": "Product Stock Data Transfer Object",
-                "description": "Product Stock information",
+            "CheckAvailabilityDTO": {
+                "properties": {
+                    "products": {
+                        "description": "List of product stock information",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProductStockDTO"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "CheckAvailabilityResultDTO": {
                 "properties": {
                     "product_id": {
-                        "description": "Ürünün benzersiz kimliği",
+                        "description": "Product ID",
+                        "type": "integer",
+                        "example": 101
+                    },
+                    "quantity": {
+                        "description": "Requested quantity",
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "available": {
+                        "description": "Availability status",
+                        "type": "boolean",
+                        "example": true
+                    }
+                },
+                "type": "object"
+            },
+            "ProductDTO": {
+                "title": "Product Data Transfer Object",
+                "description": "Product information",
+                "properties": {
+                    "product_id": {
+                        "description": "Unique identifier of the product",
+                        "type": "integer",
+                        "example": 28
+                    }
+                },
+                "type": "object"
+            },
+            "ProductStockDTO": {
+                "title": "Product Stock Data Transfer Object",
+                "description": "Product stock information",
+                "properties": {
+                    "product_id": {
+                        "description": "Unique identifier of the product",
                         "type": "integer",
                         "example": 28
                     },
                     "quantity": {
-                        "description": "Ürünün stok adedi",
+                        "description": "Stock quantity of the product",
                         "type": "integer",
                         "example": 50
                     }

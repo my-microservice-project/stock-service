@@ -2,14 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Actions\SyncStockAction;
 use App\Data\ProductStockDTO;
 use App\Exceptions\StockNotCreatedException;
-use App\Services\ProductStockService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\Log;
 
 class SyncStockJob implements ShouldQueue
 {
@@ -25,7 +24,7 @@ class SyncStockJob implements ShouldQueue
     /**
      * @throws StockNotCreatedException
      */
-    public function handle(ProductStockService $productStockService): void
+    public function handle(SyncStockAction $action): void
     {
         if (!empty($this->productDTO['product_id']) && isset($this->productDTO['stock'])) {
             $dto = new ProductStockDTO(
@@ -33,9 +32,9 @@ class SyncStockJob implements ShouldQueue
                 quantity: $this->productDTO['stock']
             );
 
-            $productStockService->sync($dto);
+            $action->execute($dto);
         } else {
-            Log::error('Gelen veri hatalı veya eksik: ' . json_encode($this->productDTO));
+            throw new StockNotCreatedException();
         }
     }
 }
