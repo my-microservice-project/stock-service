@@ -2,8 +2,6 @@
 
 namespace App\Data;
 
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapOutputName;
 use Spatie\LaravelData\Data;
 use OpenApi\Attributes as OA;
 
@@ -19,16 +17,8 @@ use OpenApi\Attributes as OA;
 class CheckAvailabilityResultDTO extends Data
 {
     public function __construct(
-        #[MapInputName('product_id')]
-        #[MapOutputName('product_id')]
-        public int $productId,
-
-        #[MapInputName('quantity')]
-        #[MapOutputName('quantity')]
+        public int $product_id,
         public int $quantity,
-
-        #[MapInputName('available')]
-        #[MapOutputName('available')]
         public bool $available
     ) {}
 }
