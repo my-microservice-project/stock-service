@@ -2,8 +2,18 @@
 
 namespace App\Data;
 
+use OpenApi\Attributes as OA;
 use Spatie\LaravelData\Data;
 
+#[OA\Schema(
+    schema: "ProductDTO",
+    title: "Product Data Transfer Object",
+    description: "Product information",
+    properties: [
+        new OA\Property(property: "product_id", description: "Unique identifier of the product", type: "integer", example: 28),
+    ],
+    type: "object"
+)]
 class ProductDTO extends Data
 {
     public function __construct(
