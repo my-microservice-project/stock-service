@@ -1,35 +1,57 @@
 # Stock Service
 
-Bu proje, stok yönetimi için geliştirilmiş bir mikroservis uygulamasıdır.
+Bu servis, ürün stok miktarlarını yönetmek için cache based tasarlanmış bir mikroservistir.
 
-## 🚀 Teknolojiler
+## 🚀 Başlangıç
 
-- Laravel 11
-- PostgreSQL
-- Redis
-- RabbitMQ
+### Gereksinimler
+
 - Docker
+- Docker Compose
+- Redis
+- PostgreSQL
 
-## 🛠 Kurulum
+### Kurulum
 
-### Ön Gereksinimler
-
-- Docker ve Docker Compose
-
-### Kurulum Adımları
-
-1. Projeyi klonlayın:
+1. Projeyi klonlayın
 ```bash
 git clone https://github.com/my-microservice-project/stock-service
+```
+
+2. Proje dizinine gidin
+```bash
 cd stock-service
 ```
 
-2. Örnek .env dosyasını kopyalayın:
+3. .env dosyasını oluşturun
 ```bash
 cp .env.example .env
 ```
 
-3. Docker servisleri başlatın:
+4. Kaynak kod dizinine gidin
 ```bash
-docker-compose up -d
+cd src/
 ```
+
+5. .env dosyasını oluşturun
+```bash
+cp .env.example .env
+```
+
+6. Ana dizinine gidin ve Docker Compose ile servisi başlatın
+```bash
+cd .. && docker-compose up -d
+```
+
+7. Container içerisine girin
+```bash
+docker exec -it phpserver_stock_service
+```
+8. Composer ile bağımlılıkları yükleyin
+```bash
+composer install
+```
+
+## 📝 Notlar
+
+- Swagger dökümantasyonu için [http://localhost:8083/api/documentation](http://localhost:8083/api/documentation) adresini ziyaret edebilirsiniz.
