@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Traits\ResponseTrait;
 use OpenApi\Attributes as OA;
 
 
@@ -15,5 +14,4 @@ use OpenApi\Attributes as OA;
 )]
 abstract class Controller
 {
-    use ResponseTrait;
 }
