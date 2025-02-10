@@ -122,4 +122,28 @@ class ProductStockService
     {
         return $stock > 0 && $stock >= $requestedQuantity;
     }
+
+    /**
+     * @param ProductStockDTO $dto
+     * @return ProductStockDTO
+     * @throws StockNotCreatedException
+     */
+    public function decrease(ProductStockDTO $dto): ProductStockDTO
+    {
+        $stock = $this->getStock($dto->product_id);
+
+        if ($stock < $dto->quantity) {
+            throw new StockNotCreatedException();
+        }
+
+        $decrease = $this->productStockRepository->decrease($dto->toArray());
+
+        $this->updateCache($dto->product_id, $decrease->quantity);
+
+        $this->dispatchStockUpdatedEvent($dto->product_id);
+
+        return $decrease;
+    }
+
+
 }

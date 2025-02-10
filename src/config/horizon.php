@@ -199,7 +199,7 @@ return [
         'production' => [
             'supervisor-default' => [
                 'connection' => 'rabbitmq',
-                'queue' => [ 'Sync_Stock'],
+                'queue' => [ 'Sync_Stock','Decrease_Stock'],
                 'balance' => 'auto',
                 'processes' => 10,
                 'tries' => 3,
@@ -209,7 +209,7 @@ return [
         'local' => [
             'supervisor-default' => [
                 'connection' => 'rabbitmq',
-                'queue' => [ 'Sync_Stock'],
+                'queue' => [ 'Sync_Stock','Decrease_Stock'],
                 'balance' => 'simple',
                 'processes' => 3,
                 'tries' => 3,

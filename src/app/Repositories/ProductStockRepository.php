@@ -6,6 +6,7 @@ use App\Data\ProductStockDTO;
 use App\Exceptions\StockNotFoundException;
 use App\Models\Stock;
 use App\Repositories\Contracts\ProductStockRepositoryInterface;
+use Illuminate\Support\Facades\Log;
 
 class ProductStockRepository implements ProductStockRepositoryInterface
 {
@@ -55,6 +56,21 @@ class ProductStockRepository implements ProductStockRepositoryInterface
         }
 
         $stock->update($attributes);
+
+        return ProductStockDTO::from($stock);
+    }
+
+    /**
+     * @param array $attributes
+     * @return ProductStockDTO
+     */
+    public function decrease(array $attributes): ProductStockDTO
+    {
+        $stock = $this->model->where('product_id', $attributes['product_id'])->first();
+
+        $stock->update([
+            'quantity' => $stock->quantity - $attributes['quantity']
+        ]);
 
         return ProductStockDTO::from($stock);
     }

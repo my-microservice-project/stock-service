@@ -12,4 +12,6 @@ interface ProductStockRepositoryInterface
 
     public function sync(array $attributes): ProductStockDTO;
 
+    public function decrease(array $attributes): ProductStockDTO;
+
 }
